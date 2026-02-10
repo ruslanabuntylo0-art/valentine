@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Валентинка</title>
+<style>
+body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: #ffe6f0;
+    padding-top: 100px;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s;
+}
+
+#yesBtn {
+    background-color: hotpink;
+    color: white;
+}
+
+#noBtn {
+    background-color: lightgray;
+}
+
+.heart {
+    position: fixed;
+    top: -20px;
+    font-size: 24px;
+    animation: fall 4s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+<body>
+
+<h1>Владик, ты будешь моим валентином? 💘</h1>
+
+<button id="yesBtn">Да</button>
+<button id="noBtn">Нет</button>
+
+<script>
+let noTexts = [
+"ну пожалуйста 🥺",
+"ну я же люблю тебя 💕",
+"ты точно уверен? 😢",
+"подумай ещё раз 😏",
+"Владик..."
+];
+
+let clickCount = 0;
+
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("click", function() {
+    if (clickCount < noTexts.length) {
+        noBtn.textContent = noTexts[clickCount];
+        clickCount++;
+        yesBtn.style.fontSize = (18 + clickCount * 5) + "px";
+        yesBtn.style.padding = (15 + clickCount * 5) + "px " + (30 + clickCount * 10) + "px";
+    } else {
+        noBtn.style.display = "none";
+    }
+});
+
+yesBtn.addEventListener("click", function() {
+    document.body.innerHTML = `
+        <h1>УРАААААА 💖💖💖</h1>
+        <img src="love.png" style="max-width:80%; height:auto; border-radius:20px; margin-top:20px;">
+    `;
+    startConfetti();
+});
+
+function startConfetti() {
+    for (let i = 0; i < 50; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.fontSize = (20 + Math.random() * 20) + "px";
+        heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => {
+            heart.remove();
+        }, 4000);
+    }
+}
+</script>
+
+</body>
+</html>
